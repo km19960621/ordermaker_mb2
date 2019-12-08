@@ -1,0 +1,84 @@
+<div id="target">
+  <table border="1">
+    <caption>
+      <%= @product.TableName %>
+    </caption>
+    <tr>
+      <th colspan="3">
+        野手
+      </th>
+    </tr>
+    <% for num in 1..9 do %>
+      <tr>
+        <td><%= num %></td>
+        <td>
+          <%= @product.FielderPosition[num - 1] %>
+        </td>
+        <td class="PlayerName">
+          <%= @product.FielderName[num - 1] %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <table border="1">
+    <tr>
+      <th colspan="2">
+        代打
+      </th>
+    </tr>
+    <% for num in 1..4 do %>
+      <tr>
+        <td>
+          <%= @product.PinchHitterPosition[num - 1] %>
+        </td>
+        <td class="PlayerName">
+          <%= @product.PinchHitterName[num - 1] %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <table border="1">
+    <tr>
+      <th colspan="3">
+        投手
+      </th>
+    </tr>
+    <% for num in 1..7 do %>
+      <tr>
+        <td>
+          <% role = ["先", "先", "先", "中", "中", "中", "抑"] %>
+          <%= role[num - 1] %>
+        </td>
+        <td class="PlayerName">
+          <%= @product.PitcherName[num - 1] %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<a href="" id="mobapro2_order" download="mobapro2_order.png">ダウンロード</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script>
+  //ロードされた際の処理として実施：
+  window.onload = function(){
+
+    //HTML内に画像を表示
+    html2canvas(document.getElementById("target"),{
+      onrendered: function(canvas){
+        //imgタグのsrcの中に、html2canvasがレンダリングした画像を指定する。
+        var imgData = canvas.toDataURL();
+        document.getElementById("result").src = imgData;
+      }
+    });
+
+    //ボタンを押下した際にダウンロードする画像を作る
+    html2canvas(document.getElementById("target"),{
+      onrendered: function(canvas){
+        //aタグのhrefにキャプチャ画像のURLを設定
+        var imgData = canvas.toDataURL();
+        document.getElementById("mobapro2_order").href = imgData;
+      }
+    });
+
+  }
+</script>

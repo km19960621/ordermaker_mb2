@@ -1,0 +1,86 @@
+<%= form_with url: pages_complete_path, mehtod: :post, local: true do |form| %>
+  <table border="1">
+    <caption>
+      <%= form.text_field :TableName %>
+    </caption>
+    <tr>
+      <th colspan="3">
+        野手
+      </th>
+    </tr
+    <tr>
+      <th>
+        打順
+      </th>
+      <th>
+        守備
+      </th>
+      <th>
+        選手名
+      </th>
+    </tr>
+    <% for num in 1..9 do %>
+      <tr>
+        <td><%= num %></td>
+        <td>
+          <%= form.select "FielderPosition[]", ["　", "捕", "一", "二", "三", "遊", "左", "中", "右", "DH"] %>
+        </td>
+        <td class="PlayerName">
+          <%= form.text_field "FielderName[]" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <table border="1">
+    <tr>
+      <th colspan="2">
+        代打
+      </th>
+    </tr>
+    <tr>
+      <th>
+        守備
+      </th>
+      <th>
+        選手名
+      </th>
+    </tr>
+    <% for num in 1..4 do %>
+      <tr>
+        <td>
+          <%= form.select "PinchHitterPosition[]", ["　", "捕", "内", "外"] %>
+        </td>
+        <td class="PlayerName">
+          <%= form.text_field "PinchHitterName[]" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <table border="1">
+    <tr>
+      <th colspan="3">
+        投手
+      </th>
+    </tr>
+    <tr>
+      <th>
+        役割
+      </th>
+      <th>
+        選手名
+      </th>
+    </tr>
+    <% for num in 1..7 do %>
+      <tr>
+        <td>
+          <% role = ["先", "先", "先", "中", "中", "中", "抑"] %>
+          <%= role[num - 1] %>
+        </td>
+        <td class="PlayerName">
+          <%= form.text_field "PitcherName[]" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= form.submit "オーダーを作成する" %>
+<% end %>
